@@ -1,37 +1,30 @@
 from app.common.http_methods import GET, POST, PUT
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 
 from ..controllers import SizeController
+from app.services.crud_calls_decorator.crud_decorator import *
 
 size = Blueprint('size', __name__)
 
 
 @size.route('/', methods=POST)
 def create_size():
-    size, error = SizeController.create(request.json)
-    response = size if not error else {'error': error}
-    status_code = 200 if not error else 400
-    return jsonify(response), status_code
+    return DecoratorCreate(
+        ConcreteEntity(SizeController, request.json)).crud_call()
 
 
 @size.route('/', methods=PUT)
 def update_size():
-    size, error = SizeController.update(request.json)
-    response = size if not error else {'error': error}
-    status_code = 200 if not error else 400
-    return jsonify(response), status_code
+    return DecoratorUpdate(
+        ConcreteEntity(SizeController, request.json)).crud_call()
 
 
 @size.route('/id/<_id>', methods=GET)
 def get_size_by_id(_id: int):
-    size, error = SizeController.get_by_id(_id)
-    response = size if not error else {'error': error}
-    status_code = 200 if size else 404 if not error else 400
-    return jsonify(response), status_code
+    return DecoratorGetById(
+        ConcreteEntity(SizeController, _id)).crud_call()
 
 @size.route('/', methods=GET)
 def get_sizes():
-    size, error = SizeController.get_all()
-    response = size if not error else {'error': error}
-    status_code = 200 if size else 404 if not error else 400
-    return jsonify(response), status_code
+    return DecoratorGet(
+        ConcreteEntity(SizeController)).crud_call()
