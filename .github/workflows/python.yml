@@ -23,3 +23,6 @@ jobs:
     - name: Install pytest
       run: |
             pip install pytest
+    - name: Run tests with pytest
+      run: |
+            pytest
