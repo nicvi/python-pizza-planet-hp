@@ -7,7 +7,7 @@ def test_create_size_service(create_size):
     pytest.assume(create_size.status.startswith('200'))
     pytest.assume(size['_id'])
     pytest.assume(size['name'])
-    pytest.assume(size['price'])
+    pytest.assume(size['prices'])
 
 
 def test_update_size_service(client, create_size, size_uri):
