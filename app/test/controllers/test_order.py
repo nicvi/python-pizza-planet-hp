@@ -1,4 +1,5 @@
 import pytest
+from datetime import datetime
 from app.controllers import (IngredientController, OrderController,
                              SizeController)
 from app.controllers.base import BaseController
@@ -51,6 +52,30 @@ def test_calculate_order_price(app, ingredients, size, client_data):
     order = __order(created_ingredients, created_size, client_data)
     created_order, _ = OrderController.create(order)
     pytest.assume(created_order['total_price'] == round(created_size['price'] + sum(ingredient['price'] for ingredient in created_ingredients), 2))
+
+
+def test_set_date_on_order_with_correct_date_format(app, order):
+    date = datetime(2022, 12, 23, 3, 4, 5)
+    date_object = datetime.strptime(str(date), "%Y-%m-%d %H:%M:%S")
+    order['date'] = str(date_object)
+
+    order_with_date_obj = OrderController.set_date(order)
+
+    pytest.assume(type(order_with_date_obj['date']) == type(date))
+
+
+def test_set_date_on_order_with_incorrect_date_format(app, order):
+    current_date = datetime.utcnow()
+    order['date'] = '2022-15-23 03:04:05'
+
+    order_with_date_obj = OrderController.set_date(order)
+
+    pytest.assume(type(order_with_date_obj['date']) == type(current_date))
+    pytest.assume(order_with_date_obj['date'].year == current_date.year)
+    pytest.assume(order_with_date_obj['date'].month == current_date.month)
+    pytest.assume(order_with_date_obj['date'].day == current_date.day)
+    pytest.assume(order_with_date_obj['date'].hour == current_date.hour)
+    pytest.assume(order_with_date_obj['date'].minute == current_date.minute)
 
 
 def test_get_by_id(app, ingredients, size, client_data):
