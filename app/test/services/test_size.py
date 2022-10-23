@@ -2,6 +2,7 @@ import pytest
 
 from app.test.utils.functions import get_random_string, get_random_price
 
+
 def test_create_size_service(create_size):
     size = create_size.json
     pytest.assume(create_size.status.startswith('200'))
@@ -12,7 +13,8 @@ def test_create_size_service(create_size):
 
 def test_update_size_service(client, create_size, size_uri):
     current_size = create_size.json
-    update_data = {'_id':current_size['_id'], 'name': get_random_string(), 'price': get_random_price(1, 5)}
+    update_data = {'_id': current_size['_id'],
+                   'name': get_random_string(), 'price': get_random_price(1, 5)}
     response = client.put(size_uri, json=update_data)
     pytest.assume(response.status.startswith('200'))
     updated_size = response.json
@@ -38,4 +40,4 @@ def test_get_sizes(client, create_sizes, size_uri):
     for size in create_sizes:
         for param, value in size.items():
             pytest.assume(returned_size[index][param] == value)
-        index+=1
+        index += 1

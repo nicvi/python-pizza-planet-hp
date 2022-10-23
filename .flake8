@@ -1,0 +1,23 @@
+[flake8]
+exclude =
+    .git
+    __init__.py
+    __pycache__/
+    *.py[cod]
+    .DS_Store
+    .pytest_cache
+    .idea
+    .vscode
+    .vs
+    firebase_credentials.json
+    .venv/*
+    .env
+    env
+    migrations
+    ui
+    venv
+    pizza.sqlite
+    README.md
+show-source = True
+statistics = True
+max-line-length=100

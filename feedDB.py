@@ -1,10 +1,11 @@
-from app.test.utils.functions import *
+from app.test.utils.functions import (random_date,
+                                      random_size_id,
+                                      random_id_list,
+                                      get_random_choice)
 from app.test.fixtures.beverage import beverage_mock
 from app.test.fixtures.size import size_mock
 from app.test.fixtures.ingredient import ingredient_mock
 from app.test.fixtures.order import client_data_mock
-from app.repositories.models import Ingredient, Order, OrderDetail, Size, Beverage, SideOrder, db
-from app.repositories.serializers import SizeSerializer
 import requests
 
 
@@ -38,7 +39,7 @@ def post_entity(url_endpoint: str, number_entities: int, dict_entity=None):
     if (url_endpoint == 'order'):
         clients_list = create_clients()
         while entity_number < number_entities:
-            order_dict = create_order(random.choice(clients_list))
+            order_dict = create_order(get_random_choice(clients_list))
             requests.post(url, json=order_dict)
             entity_number += 1
     else:

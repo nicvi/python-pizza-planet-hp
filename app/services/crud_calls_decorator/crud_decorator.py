@@ -1,5 +1,5 @@
 from flask import jsonify
-from .general_entity_component import *
+from .general_entity_component import AbstEntity
 
 
 class AbstCruDecorator(AbstEntity):

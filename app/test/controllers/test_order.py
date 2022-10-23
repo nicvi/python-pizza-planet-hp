@@ -51,7 +51,10 @@ def test_calculate_order_price(app, ingredients, size, client_data):
     created_size, created_ingredients = __create_sizes_and_ingredients(ingredients, [size])
     order = __order(created_ingredients, created_size, client_data)
     created_order, _ = OrderController.create(order)
-    pytest.assume(created_order['total_price'] == round(created_size['price'] + sum(ingredient['price'] for ingredient in created_ingredients), 2))
+    pytest.assume(
+        created_order['total_price'] ==
+        round(created_size['price'] + sum(ingredient['price']
+                                          for ingredient in created_ingredients), 2))
 
 
 def test_set_date_on_order_with_correct_date_format(app, order):
@@ -98,7 +101,8 @@ def test_get_all(app, ingredients, sizes, client_data):
     created_sizes, created_ingredients = __create_sizes_and_ingredients(ingredients, sizes)
     created_orders = []
     for _ in range(5):
-        order = __order(shuffle_list(created_ingredients)[:3], get_random_choice(created_sizes), client_data)
+        order = __order(shuffle_list(created_ingredients)[
+                        :3], get_random_choice(created_sizes), client_data)
         created_order, _ = OrderController.create(order)
         created_orders.append(created_order)
 

@@ -3,7 +3,8 @@ from flask import Blueprint
 
 from app.controllers.report import ReportController
 
-from app.services.crud_calls_decorator.crud_decorator import DecoratorGet, ConcreteEntity
+from app.services.crud_calls_decorator.crud_decorator import DecoratorGet
+from app.services.crud_calls_decorator.general_entity_component import ConcreteEntity
 
 report = Blueprint('report', __name__)
 
