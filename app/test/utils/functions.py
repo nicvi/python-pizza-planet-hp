@@ -38,6 +38,10 @@ def get_random_phone() -> str:
     return get_random_sequence(10)
 
 
+def get_random_month():
+    return random.randint(2, 12)
+
+
 def random_date() -> str:
     random_date = datetime(
         2022, random.randint(1, 12), random.randint(1, 28),

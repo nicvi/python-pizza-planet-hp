@@ -6,10 +6,6 @@ from ..utils.functions import (shuffle_list, get_random_sequence,
 
 import pytest
 
-from ..utils.functions import (shuffle_list, get_random_sequence,
-                               get_random_string)
-
-
 def client_data_mock() -> dict:
     return {
         'client_address': get_random_string(),
