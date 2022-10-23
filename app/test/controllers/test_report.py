@@ -1,4 +1,3 @@
-import pytest
 from datetime import datetime
 from app.controllers import ReportController
 from app.test.utils.functions import get_random_price, get_random_month
@@ -38,10 +37,10 @@ def test__get_all_report_return_successful_response(mocker):
 
     report_data_obtained, error = ReportController.get_all()
 
-    assert error == None
+    assert error is None
     assert len(report_data_obtained['top_customers']) == 3
-    assert type(int(report_data_obtained['wealthy_month'][0])) == type(int())
-    assert type(report_data_obtained['wealthy_month'][1]) == type(float())
+    assert isinstance(int(report_data_obtained['wealthy_month'][0]), int)
+    assert isinstance(report_data_obtained['wealthy_month'][1], float)
     assert report_data_obtained['popular_ingredient'] == top_ingredient
 
 
@@ -54,7 +53,7 @@ def test__get_all_report_return_alchemy_error(mocker):
 
     report_data_obtained, error = ReportController.get_all()
 
-    assert report_data_obtained == None
+    assert report_data_obtained is None
     assert error == error_msn
 
 
@@ -67,7 +66,7 @@ def test__get_all_report_return_runtime_error_response(mocker):
 
     report_data_obtained, error = ReportController.get_all()
 
-    assert report_data_obtained == None
+    assert report_data_obtained is None
     assert error == error_msn
 
 
@@ -91,9 +90,9 @@ def test__format_response():
     formatted_report = ReportController.format_response(
         top_customer_row, top_ingredient, months_revenue)
 
-    assert formatted_report['top_customers'] != None
-    assert formatted_report['wealthy_month'] != None
-    assert formatted_report['popular_ingredient'] != None
+    assert formatted_report['top_customers'] is not None
+    assert formatted_report['wealthy_month'] is not None
+    assert formatted_report['popular_ingredient'] is not None
 
 
 def test__sqlalchemy_row_to_list():

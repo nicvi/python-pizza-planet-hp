@@ -74,10 +74,14 @@ class OrderManager(BaseManager):
         cls.session.flush()
         cls.session.refresh(new_order)
 
-        cls.session.add_all((OrderDetail(order_id=new_order._id, ingredient_id=ingredient._id, ingredient_price=ingredient.price)
+        cls.session.add_all((OrderDetail(order_id=new_order._id,
+                                         ingredient_id=ingredient._id,
+                                         ingredient_price=ingredient.price)
                              for ingredient in ingredients
                              ))
-        cls.session.add_all((SideOrder(order_id=new_order._id, beverage_id=beverage._id, beverage_price=beverage.price)
+        cls.session.add_all((SideOrder(order_id=new_order._id,
+                                       beverage_id=beverage._id,
+                                       beverage_price=beverage.price)
                              for beverage in beverages))
         cls.session.commit()
         return cls.serializer().dump(new_order)
@@ -101,7 +105,7 @@ class ReportManager(BaseManager):
         ).group_by(Order.client_name)\
             .order_by(func.count(Order.client_name).desc())\
             .all()
-        top_clients = clients_coincidences[0:3] if len(clients_coincidences)>=3 else None
+        top_clients = clients_coincidences[0:3] if len(clients_coincidences) >= 3 else None
 
         ingredients_id = cls.session.query(
             OrderDetail.ingredient_id,

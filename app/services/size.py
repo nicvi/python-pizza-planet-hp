@@ -2,7 +2,11 @@ from app.common.http_methods import GET, POST, PUT
 from flask import Blueprint, request
 
 from ..controllers import SizeController
-from app.services.crud_calls_decorator.crud_decorator import *
+from app.services.crud_calls_decorator.crud_decorator import (DecoratorCreate,
+                                                              DecoratorGetById,
+                                                              DecoratorGet,
+                                                              DecoratorUpdate)
+from app.services.crud_calls_decorator.general_entity_component import ConcreteEntity
 
 size = Blueprint('size', __name__)
 
@@ -23,6 +27,7 @@ def update_size():
 def get_size_by_id(_id: int):
     return DecoratorGetById(
         ConcreteEntity(SizeController, _id)).crud_call()
+
 
 @size.route('/', methods=GET)
 def get_sizes():

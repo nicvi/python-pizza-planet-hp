@@ -2,7 +2,11 @@ from app.common.http_methods import GET, POST, PUT
 from flask import Blueprint, request
 
 from ..controllers import BeverageController
-from app.services.crud_calls_decorator.crud_decorator import *
+from app.services.crud_calls_decorator.crud_decorator import (DecoratorCreate,
+                                                              DecoratorGetById,
+                                                              DecoratorGet,
+                                                              DecoratorUpdate)
+from app.services.crud_calls_decorator.general_entity_component import ConcreteEntity
 
 beverage = Blueprint('beverage', __name__)
 

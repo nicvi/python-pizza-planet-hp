@@ -1,10 +1,11 @@
 import pytest
 
+
 def test_get_report_service(client, create_orders, report_uri):
-    
+
     response = client.get(report_uri)
     pytest.assume(response.status.startswith('200'))
-    
+
     report_response = response.json
 
     assert type(report_response['popular_ingredient'][0]) == str

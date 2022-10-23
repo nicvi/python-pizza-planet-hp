@@ -19,7 +19,6 @@ class OrderController(BaseController):
         total_price = size_price + beverages_price + ingredients_price
         return round(total_price, 2)
 
-
     @staticmethod
     def set_date(order: dict) -> dict:
         if 'date' in order.keys():
@@ -29,7 +28,6 @@ class OrderController(BaseController):
             except ValueError:
                 order['date'] = datetime.utcnow()
         return order
-
 
     @classmethod
     def create(cls, order: dict):

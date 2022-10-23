@@ -44,7 +44,8 @@ def test_get_all(app, ingredients: list):
         created_ingredients.append(created_ingredient)
 
     ingredients_from_db, error = IngredientController.get_all()
-    searchable_ingredients = {db_ingredient['_id']: db_ingredient for db_ingredient in ingredients_from_db}
+    searchable_ingredients = {db_ingredient['_id']: db_ingredient
+                              for db_ingredient in ingredients_from_db}
     pytest.assume(error is None)
     for created_ingredient in created_ingredients:
         current_id = created_ingredient['_id']
